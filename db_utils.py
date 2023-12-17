@@ -46,4 +46,5 @@ def load_data(csv_path):
     df = pd.read_csv(csv_path)
     return df
 loaded_data = load_data(csv_path)
-print(loaded_data)
+#print(loaded_data)
+loaded_data.head()
