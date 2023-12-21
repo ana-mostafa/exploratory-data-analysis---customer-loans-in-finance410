@@ -45,6 +45,13 @@ connector.save_to_csv(data_frame, csv_path)
 def load_data(csv_path):
     df = pd.read_csv(csv_path)
     return df
-loaded_data = load_data(csv_path)
-#print(loaded_data)
-loaded_data.head()
+if __name__ == "__main__":
+    creds = load_credentials(file_path)
+    connector = RDSDatabaseConnector(creds)
+    
+    data_frame = connector.extract_data()
+    csv_path = '/Users/moustafarashed/EDA_Projects/exploratory-data-analysis---customer-loans-in-finance410/loan_payments.csv'
+    connector.save_to_csv(data_frame, csv_path)
+    
+    loaded_data = load_data(csv_path)
+    print(loaded_data.head())
