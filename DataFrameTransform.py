@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+
 
 class DataFrameTransform:
 
@@ -18,4 +20,10 @@ class DataFrameTransform:
             self.df[column_name].fillna(self.df[column_name].mode(), inplace=True)            
         else:
             print("Invalid imputation strategy!")
+        return self.df
+
+    def log_transform_numeric(self):
+        numeric_columns = self.df.select_dtypes(include=np.number).columns.tolist()
+        for col in numeric_columns:
+            self.df[col] = np.log1p(self.df[col])
         return self.df
