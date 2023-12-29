@@ -33,11 +33,13 @@ class Plotter:
         plt.show()
 
     def visualize_skew_sns(self, df, columns):
-        plt.figure(figsize=(10, 6))
-        for col in columns:
-            sns.histplot(df[col], kde=True, label=col)
-        plt.legend()
-        plt.title('Skewness Visualization')
+        numeric_features = [col for col in df.columns if df[col].dtype in ['int64', 'float64']]
+
+        sns.set(font_scale=0.7)
+        f = pd.melt(df[numeric_features].reset_index(), id_vars="index", value_vars=numeric_features)
+        g = sns.FacetGrid(f, col="variable", col_wrap=3, sharex=False, sharey=False)
+        g = g.map(sns.histplot, "value", kde=True)
+
         plt.show()
     
     def visualize_outliers(self, df, columns):
